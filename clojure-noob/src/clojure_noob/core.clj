@@ -44,3 +44,5 @@
 ((get x :logic) 4)
 
 ((x :unlogic dec) 6)
+
+(:logic x)
