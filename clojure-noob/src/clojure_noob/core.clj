@@ -6,10 +6,12 @@
   [& args]
   (println "I'm a little teapot!"))
 
-(defn makeAFunc [a]
-  (println a))
+(defn map
+  [func arg]
+  (loop [arr []
+         elem (first arg)]
+    (if elem
+      (recur (cons (func elem) arr))
+      arr)))
 
-(defn call-a-func []
-  (makeAFunc "heeeeey"))
-
-(call-a-func)
+(map inc [1 2 3 4])
