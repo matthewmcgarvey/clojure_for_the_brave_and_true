@@ -24,3 +24,13 @@
 (when true
   (print "HEY")
   (print " THERE"))
+
+(defmacro or
+  [& args]
+  (loop [(x & xs) args]
+    (if x
+      true
+      (recur xs))))
+
+(or false false false)
+(or true false false)
