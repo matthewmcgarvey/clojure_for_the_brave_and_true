@@ -46,3 +46,5 @@
 ((x :unlogic dec) 6)
 
 (:logic x)
+
+(:logic nil)
