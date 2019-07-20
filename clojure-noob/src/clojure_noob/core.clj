@@ -42,3 +42,5 @@
 (def x {:logic inc})
 
 ((get x :logic) 4)
+
+((x :unlogic dec) 6)
