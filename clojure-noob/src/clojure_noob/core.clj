@@ -40,7 +40,15 @@
 (:logic nil)
 
 (defn what-i-need
-  [{api-key :api-key}]
+  [{:keys [api-key]}]
   (str "found it " api-key "!"))
 
 (what-i-need {:api-key "SUPERSECRET" :other-stuff 123})
+
+; note that there is no way to require that the specified keys are in the passed map
+(defn what-i-wish-i-had
+  [{magic-words :magic-words}]
+  (if-not (nil? magic-words)
+    (str "found it " magic-words "!")))
+
+(what-i-wish-i-had {:boring-stuff 42})
