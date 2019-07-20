@@ -38,3 +38,9 @@
 (:logic x)
 
 (:logic nil)
+
+(defn what-i-need
+  [{api-key :api-key}]
+  (str "found it " api-key "!"))
+
+(what-i-need {:api-key "SUPERSECRET" :other-stuff 123})
