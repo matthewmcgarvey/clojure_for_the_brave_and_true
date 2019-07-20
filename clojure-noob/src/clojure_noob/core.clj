@@ -7,11 +7,11 @@
   (println "I'm a little teapot!"))
 
 (defn map
-  [func arg]
+  [func l]
   (loop [arr []
-         elem (first arg)]
-    (if elem
-      (recur (cons (func elem) arr))
+         x l]
+    (if (empty? x)
+      (recur ((cons (func (first x)) arr) (rest x)))
       arr)))
 
 (map inc [1 2 3 4])
