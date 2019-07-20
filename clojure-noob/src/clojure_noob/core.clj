@@ -52,3 +52,7 @@
     (str "found it " magic-words "!")))
 
 (what-i-wish-i-had {:boring-stuff 42})
+
+(def transforms [#(+ 5 %) #(* % 32) inc dec #(+ % 4) #(- % 3)])
+
+(reduce #(%2 %1) 4 transforms)
