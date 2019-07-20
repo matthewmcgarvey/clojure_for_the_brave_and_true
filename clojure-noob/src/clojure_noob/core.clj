@@ -6,16 +6,6 @@
   [& args]
   (println "I'm a little teapot!"))
 
-(defn my-map
-  [func l]
-  (loop [arr []
-         [x & xs] l]
-    (if (nil? x)
-      (recur (cons (func x) arr) xs)
-      arr)))
-
-(my-map inc [1 2 3 4])
-
 (defmacro my-when
   [test & actions]
   `(if test
