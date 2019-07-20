@@ -34,7 +34,11 @@
          x
          (recur xs)))))
 
-(or false false false)
-(or true false false)
-(or false false nil)
-(or "hi" false false)
+; (or false false false)
+; (or true false false)
+; (or false false nil)
+; (or "hi" false false)
+
+(def x {:logic inc})
+
+((get x :logic) 4)
