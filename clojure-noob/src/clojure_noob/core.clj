@@ -9,16 +9,16 @@
 (defn map
   [func l]
   (loop [arr []
-         x l]
-    (if (empty? x)
-      (recur ((cons (func (first x)) arr) (rest x)))
+         [x & xs] l]
+    (if (nil? x)
+      (recur (cons (func x) arr) xs)
       arr)))
 
 (map inc [1 2 3 4])
 
 (defmacro when
   [test & actions]
-  '(if test
+  `(if test
      (do ~@actions)))
 
 (when true
@@ -27,10 +27,14 @@
 
 (defmacro or
   [& args]
-  '(loop [(x & xs) args]
+  `(loop [[x & xs] ~@args]
      (if x
        true
-       (recur xs))))
+       (if (empty? xs)
+         x
+         (recur xs)))))
 
 (or false false false)
 (or true false false)
+(or false false nil)
+(or "hi" false false)
