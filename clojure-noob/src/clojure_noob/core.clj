@@ -15,3 +15,12 @@
       arr)))
 
 (map inc [1 2 3 4])
+
+(defmacro when
+  [test & actions]
+  '(if test
+     (do ~@actions)))
+
+(when true
+  (print "HEY")
+  (print " THERE"))
