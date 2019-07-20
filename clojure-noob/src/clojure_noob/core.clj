@@ -6,7 +6,7 @@
   [& args]
   (println "I'm a little teapot!"))
 
-(defn map
+(defn my-map
   [func l]
   (loop [arr []
          [x & xs] l]
@@ -14,30 +14,30 @@
       (recur (cons (func x) arr) xs)
       arr)))
 
-(map inc [1 2 3 4])
+(my-map inc [1 2 3 4])
 
-(defmacro when
+(defmacro my-when
   [test & actions]
   `(if test
      (do ~@actions)))
 
-(when true
-  (print "HEY")
-  (print " THERE"))
+(my-when true
+         (print "HEY")
+         (print " THERE"))
 
-(defmacro or
-  [& args]
-  `(loop [[x & xs] ~@args]
-     (if x
-       true
-       (if (empty? xs)
-         x
-         (recur xs)))))
+(defmacro my-or
+  ([] nil)
+  ([x] x)
+  ([x & xs]
+   `(if ~x
+      ~x
+      (my-or ~@xs))))
 
-; (or false false false)
-; (or true false false)
-; (or false false nil)
-; (or "hi" false false)
+(my-or false false false)
+(my-or true false false)
+(my-or false false nil)
+(my-or "hi" false false)
+(my-or)
 
 (def x {:logic inc})
 
