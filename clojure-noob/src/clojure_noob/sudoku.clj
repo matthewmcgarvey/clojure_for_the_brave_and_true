@@ -3,8 +3,13 @@
   (:require [clojure.string :as str])
   (:gen-class))
 
+(defn has? [coll val]
+  (some #{val} coll))
+
+(defn value [[name {value :value}]] value)
+
 (defn taken [row]
-  (set (remove nil? (map :value (vals row)))))
+  (set (remove nil? (map value row))))
 
 (defn available [row]
   (set/difference #{1 2 3 4 5 6 7 8 9} (taken row)))
@@ -26,18 +31,18 @@
 
 (defn merge-squares [a b]
   (or
-   (if (contains? a :value) a)
-   (if (contains? b :value) b)
+   (if (has? a :value) a)
+   (if (has? b :value) b)
    (if (and
-        (contains? a :possibilities)
-        (contains? b :possibilities))
+        (has? a :possibilities)
+        (has? b :possibilities))
      {:possibilities (set/intersection (set (get a :possibilities)) (set (get b :possibilities)))}
      (or
-      (if (contains? a :possibilities) a)
-      (if (contains? b :possibilities) b {})))))
+      (if (has? a :possibilities) a)
+      (if (has? b :possibilities) b)))))
 
 (defn merge-rows [rows]
-  (apply merge-with merge-squares rows))
+  (merge-with merge-squares rows))
 
 (defn to-sudoku
   ([parts] (into {} (mapcat
@@ -91,6 +96,7 @@
 
 (def one-open (load-sudoku "samples/02-one-open.txt"))
 
-; (solved? (merge-rows (update-rows (rows one-open))))
-
-(merge-rows (rows one-open))
+(->> one-open
+     update-rows
+     merge-rows
+     solved?)
