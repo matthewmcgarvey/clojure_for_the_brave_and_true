@@ -124,7 +124,18 @@
 (defn attempt [sudoku]
   (loop [[curr & prev :as chain] [sudoku]]
     (if (= curr (first prev))
-      (apply write-to-file "result.txt" prev)
+      prev
       (recur (cons (update-sudoku curr) chain)))))
 
-(attempt (parse-sudoku-file "samples/04.txt"))
+(defn print-results [states]
+  (do
+    (if (sudoku-solved? (first states))
+      (println "Solved")
+      (println "Failed to solve"))
+    (apply write-to-file "result.txt" states)))
+
+(defn do-the-thing [filepath]
+  (print-results (attempt (parse-sudoku-file filepath))))
+
+(do-the-thing "samples/04.txt")
+
